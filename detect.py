@@ -49,7 +49,7 @@ def run():
     while True:
         im = screenshot()  # 当前屏幕截图
         im0 = im
-        # 处理图片
+        # 处理图片 这块代码别动
         im = letterbox(im, (640, 640), stride=32, auto=True)[
             0]  # padded resize
         im = im.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
@@ -59,16 +59,17 @@ def run():
         im /= 255  # 0 - 255 to 0.0 - 1.0
         if len(im.shape) == 3:
             im = im[None]  # expand for batch dim
-
         # 推理
         pred = model(im, augment=False, visualize=False)
         # 非极大值抑制
+        # classes => 检测的个数 None为不限制
         pred = non_max_suppression(
-            pred, conf_thres=0.6, iou_thres=0.45, classes=0, max_det=1000)
+            pred, conf_thres=0.6, iou_thres=0.45, classes=None, max_det=1000)
 
         # 处理推理内容
         for i, det in enumerate(pred):
             # 画框
+            print(i, det)
             annotator = Annotator(im0, line_width=2)
             if len(det):
                 distance_list = []
@@ -77,16 +78,16 @@ def run():
                 det[:, :4] = scale_boxes(
                     im.shape[2:], det[:, :4], im0.shape).round()
                 # 处理推理出来每个目标的信息
-                for *xyxy, conf, cls in reversed(det):  
+                for *xyxy, conf, cls in reversed(det):
                     # xyxy|相似度|下标
                     # 转换xywh形式，方便计算距离
                     xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4))
-                            ).view(-1).tolist()  # normalized xywh  
+                            ).view(-1).tolist()  # normalized xywh
 
                     X = xywh[0]  # 计算物体距离截图中心点的X
                     Y = xywh[1]  # 计算物体距离截图中心点的Y
 
-                    print(X,Y,xywh)
+                    print(X, Y, xywh)
                     distance = math.sqrt(X ** 2 + Y ** 2)  # 计算物体距离截图中心点的距离
                     # xywh.append(distance)
 
