@@ -90,17 +90,10 @@ def run():
                     print(X, Y, xywh)
                     distance = math.sqrt(X ** 2 + Y ** 2)  # 计算物体距离截图中心点的距离
                     # xywh.append(distance)
-
-                    # print(det)
-
-                    # annotator.box_label(xyxy, label=f'[{names[int(cls)]}_{round(conf, 2)}]',
-                    # label = f'[{names[int(cls)]}:{round(distance, 2)}]',
+                    # 设置框的样式
                     annotator.box_label(xyxy, label=f'[{names[int(cls)]}:{round(distance, 2)}]',
                                         color=(34, 139, 34),
                                         txt_color=(0, 191, 255))
-                    # annotator.box_label(xyxy, label=f'[{int(cls)}Distance:{round(distance, 2)}]',
-                    #                     color=(34, 139, 34),
-                    #                     txt_color=(0, 191, 255))
                     # distance_list.append(distance) # 添加目标距离
                     # target_list.append(xywh) # 添加目标信息
 
