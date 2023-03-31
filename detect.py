@@ -12,7 +12,7 @@ import numpy as np
 import math
 import threading
 import time
-print('go')
+print('开始！')
 
 
 is_x2_pressed = False
@@ -64,7 +64,7 @@ def run():
         # 非极大值抑制
         # classes => 检测的个数 None为不限制
         pred = non_max_suppression(
-            pred, conf_thres=0.6, iou_thres=0.45, classes=None, max_det=1000)
+            pred, conf_thres=0.5, iou_thres=0.45, classes=None, max_det=1000)
 
         # 处理推理内容
         for i, det in enumerate(pred):
@@ -94,6 +94,8 @@ def run():
                     annotator.box_label(xyxy, label=f'[{names[int(cls)]}:{round(distance, 2)}]',
                                         color=(34, 139, 34),
                                         txt_color=(0, 191, 255))
+
+                    
                     # distance_list.append(distance) # 添加目标距离
                     # target_list.append(xywh) # 添加目标信息
 
