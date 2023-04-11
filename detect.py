@@ -11,6 +11,8 @@ import torch
 import numpy as np
 import math
 import threading
+from main import init
+
 import time
 print('开始！')
 
@@ -69,11 +71,11 @@ def run():
         # 处理推理内容
         for i, det in enumerate(pred):
             # 画框
-            print(i, det)
+            # print(i, det)
             annotator = Annotator(im0, line_width=2)
             if len(det):
-                distance_list = []
-                target_list = []
+                cls_object = []  # 当前截图 识别的所有对象
+
                 # 将转换后的图片画框结果转换成原图上的结果
                 det[:, :4] = scale_boxes(
                     im.shape[2:], det[:, :4], im0.shape).round()
@@ -86,8 +88,11 @@ def run():
 
                     X = xywh[0]  # 计算物体距离截图中心点的X
                     Y = xywh[1]  # 计算物体距离截图中心点的Y
-
-                    print(X, Y, xywh)
+                    cls_object.append({
+                        "xywh": xywh,
+                        "label": names[int(cls)]
+                    })
+                    # print(X, Y, xywh)
                     distance = math.sqrt(X ** 2 + Y ** 2)  # 计算物体距离截图中心点的距离
                     # xywh.append(distance)
                     # 设置框的样式
@@ -95,10 +100,10 @@ def run():
                                         color=(34, 139, 34),
                                         txt_color=(0, 191, 255))
 
-                    
                     # distance_list.append(distance) # 添加目标距离
                     # target_list.append(xywh) # 添加目标信息
 
+                init(cls_arr=cls_object)
                 # target_info = target_list[distance_list.index(min(distance_list))]  # 获取离屏幕最近敌人的信息
 
                 # if is_x2_pressed:

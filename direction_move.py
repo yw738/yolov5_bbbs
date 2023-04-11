@@ -1,4 +1,4 @@
-68import time
+import time
 
 from directkeys import PressKey, ReleaseKey
 
