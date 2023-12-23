@@ -1,6 +1,6 @@
 import time
 
-from directkeys import PressKey, ReleaseKey,key_down,key_up
+from directkeys import key_down, key_up,key_down,key_up
 
 #               上： i        下：  k        左：  l       右：    j
 # direct_dic = {"UP": 0xC8, "DOWN": 0xD0, "LEFT": 0xCB, "RIGHT": 0xCD}
@@ -8,69 +8,56 @@ direct_dic = {"UP": 'I', "DOWN": 'K', "LEFT": 'L', "RIGHT": 'J'}
 #         方向                                       按下延时         抬起延时
 def move(direct, material=False, action_cache=None, press_delay=0.1, release_delay=0.1):
     if direct == "RIGHT":
+        right = direct_dic["RIGHT"]
         if action_cache != None:
             if action_cache != "RIGHT":
                 if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-                    # ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-                    # ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
-                    key_down(direct_dic["RIGHT"])
+                    key_down(right)
                 else:
-                    # ReleaseKey(direct_dic[action_cache])
-                    key_down(direct_dic["RIGHT"])
-                key_up(direct_dic["RIGHT"])
-                # PressKey(direct_dic["RIGHT"])
+                    key_down(right)
+                key_up(right)
                 if not material:
                     time.sleep(press_delay)
-                    # ReleaseKey(direct_dic["RIGHT"])
-                    key_down(direct_dic["RIGHT"])
+                    key_down(right)
                     time.sleep(release_delay)
-                    # PressKey(direct_dic["RIGHT"])
-                    key_up(direct_dic["RIGHT"])
+                    key_up(right)
                 action_cache = "RIGHT"
-                print("向右移动",direct_dic["RIGHT"])
+                print("向右移动",right)
             else:
-                print("向右移动",direct_dic["RIGHT"])
-            
+                print("向右移动",right)
         else:
-            # PressKey(direct_dic["RIGHT"])
-            key_up(direct_dic["RIGHT"])
-            
+            key_up(right)
             if not material:
                 time.sleep(press_delay)
-                # ReleaseKey(direct_dic["RIGHT"])
-                key_down(direct_dic["RIGHT"])
+                key_down(right)
                 time.sleep(release_delay)
-                # PressKey(direct_dic["RIGHT"])
-                key_up(direct_dic["RIGHT"])
+                key_up(right)
             action_cache = "RIGHT"
             print("向右移动")
         return action_cache
 
     elif direct == "LEFT":
+        left = direct_dic["LEFT"]
         if action_cache != None:
             if action_cache != "LEFT":
-                if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-                    ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-                    ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
-                else:
-                    ReleaseKey(direct_dic[action_cache])
-                PressKey(direct_dic["LEFT"])
+                key_down(left)
+                key_up(left)
                 if not material:
                     time.sleep(press_delay)
-                    ReleaseKey(direct_dic["LEFT"])
+                    key_up(direct_dic["LEFT"])
                     time.sleep(release_delay)
-                    PressKey(direct_dic["LEFT"])
+                    key_down(direct_dic["LEFT"])
                 action_cache = "LEFT"
                 print("向左移动")
             else:
                 print("向左移动")
         else:
-            PressKey(direct_dic["LEFT"])
+            key_down(direct_dic["LEFT"])
             if not material:
                 time.sleep(press_delay)
-                ReleaseKey(direct_dic["LEFT"])
+                key_up(direct_dic["LEFT"])
                 time.sleep(release_delay)
-                PressKey(direct_dic["LEFT"])
+                key_down(direct_dic["LEFT"])
             action_cache = "LEFT"
             print("向左移动")
         return action_cache
@@ -79,25 +66,18 @@ def move(direct, material=False, action_cache=None, press_delay=0.1, release_del
         if action_cache != None:
             if action_cache != "UP":
                 if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-                    ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-                    ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
+                    key_up(direct_dic["UP"])
                 else:
-                    ReleaseKey(direct_dic[action_cache])
-                PressKey(direct_dic["UP"])
-                # time.sleep(press_delay)
-                # ReleaseKey(direct_dic["UP"])
-                # time.sleep(release_delay)
-                # PressKey(direct_dic["UP"])
+                    key_up(direct_dic[action_cache])
+                key_down(direct_dic["UP"])
+               
                 action_cache = "UP"
                 print("向上移动")
             else:
                 print("向上移动")
         else:
-            PressKey(direct_dic["UP"])
-            # time.sleep(press_delay)
-            # ReleaseKey(direct_dic["UP"])
-            # time.sleep(release_delay)
-            # PressKey(direct_dic["UP"])
+            key_down(direct_dic["UP"])
+           
             action_cache = "UP"
             print("向上移动")
         return action_cache
@@ -106,184 +86,21 @@ def move(direct, material=False, action_cache=None, press_delay=0.1, release_del
         if action_cache != None:
             if action_cache != "DOWN":
                 if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-                    ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-                    ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
+                    key_up(direct_dic["DOWN"])
                 else:
-                    ReleaseKey(direct_dic[action_cache])
-                PressKey(direct_dic["DOWN"])
-                # time.sleep(press_delay)
-                # ReleaseKey(direct_dic["DOWN"])
-                # time.sleep(release_delay)
-                # PressKey(direct_dic["DOWN"])
+                    key_up(direct_dic[action_cache])
+                key_down(direct_dic["DOWN"])
+             
                 action_cache = "DOWN"
                 print("向下移动")
             else:
                 print("向下移动")
         else:
-            PressKey(direct_dic["DOWN"])
-            # time.sleep(press_delay)
-            # ReleaseKey(direct_dic["DOWN"])
-            # time.sleep(release_delay)
-            # PressKey(direct_dic["DOWN"])
+            key_down(direct_dic["DOWN"])
+          
             action_cache = "DOWN"
             print("向下移动")
         return action_cache
-
-    # elif direct == "RIGHT_UP":
-    #     if action_cache != None:
-    #         if action_cache != "RIGHT_UP":
-    #             if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
-    #             else:
-    #                 ReleaseKey(direct_dic[action_cache])
-    #             if not material:
-    #                 PressKey(direct_dic["RIGHT"])
-    #                 time.sleep(press_delay)
-    #                 ReleaseKey(direct_dic["RIGHT"])
-    #                 time.sleep(release_delay)
-    #                 PressKey(direct_dic["RIGHT"])
-    #                 time.sleep(press_delay)
-    #             if material:
-    #                 PressKey(direct_dic["RIGHT"])
-    #             PressKey(direct_dic["UP"])
-    #             # time.sleep(release_delay)
-    #             action_cache = "RIGHT_UP"
-    #             print("右上移动")
-    #         else:
-    #             print("右上移动")
-    #     else:
-    #         if not material:
-    #             PressKey(direct_dic["RIGHT"])
-    #             time.sleep(press_delay)
-    #             ReleaseKey(direct_dic["RIGHT"])
-    #             time.sleep(release_delay)
-    #             PressKey(direct_dic["RIGHT"])
-    #             time.sleep(press_delay)
-    #         if material:
-    #             PressKey(direct_dic["RIGHT"])
-    #         PressKey(direct_dic["UP"])
-    #         # time.sleep(press_delay)
-    #         action_cache = "RIGHT_UP"
-    #         print("右上移动")
-    #     return action_cache
-
-    # elif direct == "RIGHT_DOWN":
-    #     if action_cache != None:
-    #         if action_cache != "RIGHT_DOWN":
-    #             if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
-    #             else:
-    #                 ReleaseKey(direct_dic[action_cache])
-    #             if not material:
-    #                 PressKey(direct_dic["RIGHT"])
-    #                 time.sleep(press_delay)
-    #                 ReleaseKey(direct_dic["RIGHT"])
-    #                 time.sleep(release_delay)
-    #                 PressKey(direct_dic["RIGHT"])
-    #                 time.sleep(press_delay)
-    #             if material:
-    #                 PressKey(direct_dic["RIGHT"])
-    #             PressKey(direct_dic["DOWN"])
-    #             # time.sleep(press_delay)
-    #             action_cache = "RIGHT_DOWN"
-    #             print("右上移动")
-    #         else:
-    #             print("右上移动")
-    #     else:
-    #         if not material:
-    #             PressKey(direct_dic["RIGHT"])
-    #             time.sleep(press_delay)
-    #             ReleaseKey(direct_dic["RIGHT"])
-    #             time.sleep(release_delay)
-    #             PressKey(direct_dic["RIGHT"])
-    #             time.sleep(press_delay)
-    #         if material:
-    #             PressKey(direct_dic["RIGHT"])
-    #         PressKey(direct_dic["DOWN"])
-    #         # time.sleep(press_delay)
-    #         action_cache = "RIGHT_DOWN"
-    #         print("右上移动")
-    #     return action_cache
-
-    # elif direct == "LEFT_UP":
-    #     if action_cache != None:
-    #         if action_cache != "LEFT_UP":
-    #             if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
-    #             else:
-    #                 ReleaseKey(direct_dic[action_cache])
-    #             if not material:
-    #                 PressKey(direct_dic["LEFT"])
-    #                 time.sleep(press_delay)
-    #                 ReleaseKey(direct_dic["LEFT"])
-    #                 time.sleep(release_delay)
-    #                 PressKey(direct_dic["LEFT"])
-    #                 time.sleep(press_delay)
-    #             if material:
-    #                 PressKey(direct_dic["LEFT"])
-    #             PressKey(direct_dic["UP"])
-    #             # time.sleep(press_delay)
-    #             action_cache = "LEFT_UP"
-    #             print("左上移动")
-    #         else:
-    #             print("左上移动")
-    #     else:
-    #         if not material:
-    #             PressKey(direct_dic["LEFT"])
-    #             time.sleep(press_delay)
-    #             ReleaseKey(direct_dic["LEFT"])
-    #             time.sleep(release_delay)
-    #             PressKey(direct_dic["LEFT"])
-    #             time.sleep(press_delay)
-    #         if material:
-    #             PressKey(direct_dic["LEFT"])
-    #         PressKey(direct_dic["UP"])
-    #         # time.sleep(press_delay)
-    #         action_cache = "LEFT_UP"
-    #         print("左上移动")
-    #     return action_cache
-
-    # elif direct == "LEFT_DOWN":
-    #     if action_cache != None:
-    #         if action_cache != "LEFT_DOWN":
-    #             if action_cache not in ["LEFT", "RIGHT", "UP", "DOWN"]:
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[0]])
-    #                 ReleaseKey(direct_dic[action_cache.strip().split("_")[1]])
-    #             else:
-    #                 ReleaseKey(direct_dic[action_cache])
-    #             if not material:
-    #                 PressKey(direct_dic["LEFT"])
-    #                 time.sleep(press_delay)
-    #                 ReleaseKey(direct_dic["LEFT"])
-    #                 time.sleep(release_delay)
-    #                 PressKey(direct_dic["LEFT"])
-    #                 time.sleep(press_delay)
-    #             if material:
-    #                 PressKey(direct_dic["LEFT"])
-    #             PressKey(direct_dic["DOWN"])
-    #             # time.sleep(press_delay)
-    #             action_cache = "LEFT_DOWN"
-    #             print("左下移动")
-    #         else:
-    #             print("左下移动")
-    #     else:
-    #         if not material:
-    #             PressKey(direct_dic["LEFT"])
-    #             time.sleep(press_delay)
-    #             ReleaseKey(direct_dic["LEFT"])
-    #             time.sleep(release_delay)
-    #             PressKey(direct_dic["LEFT"])
-    #             time.sleep(press_delay)
-    #         if material:
-    #             PressKey(direct_dic["LEFT"])
-    #         PressKey(direct_dic["DOWN"])
-    #         # time.sleep(press_delay)
-    #         action_cache = "LEFT_DOWN"
-    #         print("左下移动")
-    #     return action_cache
 
 
 if __name__ == "__main__":

@@ -26,6 +26,31 @@ def filterUser(arr):
         else:
             continue
 
+# 计算坐标
+def setZuobiao(userObj,obj):
+    # {'xywh': [101.5, 250.0, 93.0, 26.0], 'label': 'user'}
+    # {'xywh': [643.0, 332.5, 78.0, 35.0], 'label': 'openDoor'}
+    maskSize = 30 # 模型的临界值
+    userX = userObj[0]
+    userY = userObj[1] + 500 # y轴 +一点 算作人物坐标
+    objX = obj[0]
+    objY = obj[1]
+    boxW = userX - objX  # 宽
+    boxH = userY - objY # 高
+    if boxH > 0:
+        if boxW > 0:
+            # 下右
+            return ['UP','RIGHT']
+        else:
+            # 下左
+            return ['UP','LEFT']
+    else:
+        if boxW > 0:
+            # 上右
+            return ['DOWN','RIGHT']
+        else:
+            # 上左
+            return ['DOWN','LEFT']
 
 
 # 主进程 
@@ -54,6 +79,8 @@ def init(cls_arr):
     next_door_time = -20
     fs = 1  # 每四帧处理一次
 
+
+
     # 游戏
     thx = 30  # 捡东西时，x方向的阈值
     thy = 30  # 捡东西时，y方向的阈值
@@ -62,9 +89,18 @@ def init(cls_arr):
     cls_object = list(map(filterName,cls_arr))
     img_object = (map(filterXywh,cls_arr))
     # directkeys.key_press("A")
-    move(direct="RIGHT",release_delay=0.5)
+    # move(direct="RIGHT",release_delay=0.5)
+    # move(direct="left",release_delay=0.5)
+    # move(direct="UP",release_delay=0.5)
+    # move(direct="DOWN",release_delay=0.5)
     # move(direct="LEFT",release_delay=0.5)
     # directkeys.key_press("L")
+    # [{'xywh': [724.0, 108.0, 20.0, 20.0], 'label': 'userIcon'}, 
+    #  {'xywh': [19.0, 318.0, 38.0, 28.0], 'label': 'user'}, 
+    #  {'xywh': [777.5, 55.0, 17.0, 16.0], 'label': 'bossIcon'}, 
+    #  {'xywh': [643.0, 333.5, 78.0, 35.0], 'label': 'openDoor'}]
+    print(cls_arr)
+    setZuobiao()
     return
     # 扫描英雄
     if "user" in cls_object:

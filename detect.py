@@ -17,24 +17,13 @@ from main import init
 # conda init bash
 
 import time
-print('开始！')
+print('开始运行！')
 
 
 is_x2_pressed = False
 
 
-def mouse_click(x, y, button, pressed):
-    global is_x2_pressed
-    # print(x, y, button, pressed)
-    if pressed and button == pynput.mouse.Button.x2:
-        is_x2_pressed = True
-    elif not pressed and button == pynput.mouse.Button.x2:
-        is_x2_pressed = False
 
-
-def mouse_listener():
-    with Listener(on_click=mouse_click) as listener:
-        listener.join()
 
 
 @smart_inference_mode()
@@ -122,5 +111,4 @@ def run():
 
 
 if __name__ == "__main__":
-    # threading.Thread(target=mouse_listener).start()
     run()
