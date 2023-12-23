@@ -5,8 +5,8 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "python": "D:\\Python",
-            "python": "D:\\Python",
+            "python": "E:\\python",
+            "python": "E:\\python",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true

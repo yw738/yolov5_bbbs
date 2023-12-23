@@ -1,5 +1,5 @@
-from pynput.mouse import Listener
-import pynput.mouse
+# from pynput.mouse import Listener
+# import pynput.mouse
 from SendInput import *
 from ScreenShot import screenshot
 from utils.torch_utils import smart_inference_mode
@@ -12,6 +12,9 @@ import numpy as np
 import math
 import threading
 from main import init
+# E:\Web\yolo\yolov5_bbbs\requirements.txt conda create --name dnf python=3.10.9
+# conda activate dnf
+# conda init bash
 
 import time
 print('开始！')
@@ -119,5 +122,5 @@ def run():
 
 
 if __name__ == "__main__":
-    threading.Thread(target=mouse_listener).start()
+    # threading.Thread(target=mouse_listener).start()
     run()

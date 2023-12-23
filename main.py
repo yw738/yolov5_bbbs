@@ -60,8 +60,12 @@ def init(cls_arr):
     attx = 150  # 攻击时，x方向的阈值
     atty = 50  # 攻击时，y方向的阈值
     cls_object = list(map(filterName,cls_arr))
-    img_object = list(map(filterXywh,cls_arr))
-     
+    img_object = (map(filterXywh,cls_arr))
+    # directkeys.key_press("A")
+    move(direct="RIGHT",release_delay=0.5)
+    # move(direct="LEFT",release_delay=0.5)
+    # directkeys.key_press("L")
+    return
     # 扫描英雄
     if "user" in cls_object:
         # hero_xywh = img_object[cls_object.index("user")]
@@ -267,6 +271,7 @@ def init(cls_arr):
                 action_cache = move(direct="DOWN", action_cache=action_cache, press_delay=press_delay,
                                     release_delay=release_delay)
                 # break
+    
     if "money" not in cls_object and "material" not in cls_object and "monster" not in cls_object \
             and "BOSS" not in cls_object and "door" not in cls_object and 'box' not in cls_object \
             and 'options' not in cls_object:
@@ -378,16 +383,6 @@ def init(cls_arr):
                                     press_delay=press_delay,
                                     release_delay=release_delay)
                 # break
-    # 开箱子
-    if "box" in cls_object:
-        box_num = 0
-        for b in cls_object:
-            if b == "box":
-                box_num += 1
-        if box_num >= 4:
-            directkeys.key_press("ESC")
-            print("打开箱子ESC")
-            # break62
 
     # 重新开始
     time_option = -20
